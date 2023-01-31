@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body, check } from 'express-validator'
-import { login, register } from "./controllers/auth.controller";
+import { getUserProfile, login, register } from "./controllers/auth.controller";
 import { authGuard } from "./middlewares/auth.middleware";
 import { getJobDetail, getJobList } from "./controllers/jobs.controller";
 
@@ -18,6 +18,7 @@ router.post('/register',
     register
 )
 
+router.get('/profile', authGuard, getUserProfile)
 router.get('/jobs', authGuard, getJobList)
 router.get('/jobs/:id', authGuard, getJobDetail)
 

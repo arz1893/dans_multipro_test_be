@@ -65,4 +65,21 @@ async function registerUser(req: Request) {
     }
 }
 
-export { loginUser, registerUser }
+async function getUserById(id: number) {
+    const foundUser = database.prepare('SELECT * FROM users WHERE id = ?').get(id);
+    console.log('found user profile : ', foundUser)
+
+    if(foundUser) {
+        return {
+            result: true,
+            data: foundUser
+        }
+    }
+
+    return {
+        result: false,
+        data: null
+    }
+}
+
+export { loginUser, registerUser, getUserById }
